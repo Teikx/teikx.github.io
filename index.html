@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Mi Niña ❤️</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Centra verticalmente */
+            align-items: center; /* Centra horizontalmente */
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(to bottom, #6db3f2, #1e3c72);
+            background-attachment: fixed; /* Fija el fondo para que se extienda */
+            color: white;
+            text-align: center;
+            padding-bottom: 1400px; /* Agrega espacio extra al final */
+        }
+        .container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+        }
+        h1 {
+            font-size: 1.5em;
+            color: #FFFFFF;
+            transition: transform 1.5s ease-out;
+        }
+        #countdown {
+            font-size: 1.5em;
+            display: flex;
+            justify-content: center;
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #FFFFFF;
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+        .digit-box {
+            display: inline-block;
+            width: 60px;
+            height: 80px;
+            margin: 0 5px;
+            background: white;
+            color: #3F51B5;
+            font-size: 2em;
+            font-weight: bold;
+            line-height: 80px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            
+        }
+        .digit {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.5s ease-in-out;
+        }
+        #message {
+            position: absolute;
+            top: 50%;
+            left: 0%;
+            transform: translate(0%, 0%) scale(0.8);
+            opacity: 0;
+            visibility: hidden;
+            font-size: 1.2em;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            text-align: left;
+            color: #3F51B5;
+            transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+            z-index: 10
+        }
+        .hidden {
+    display: none;
+}
+
+#showPhotos {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    color: white;
+    background: #ff4081;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#showPhotos:hover {
+    background: #e91e63;
+}
+
+#photoGallery {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+#photoGallery img {
+    max-width: 80%;
+    max-height: 80vh;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.3);
+}
+
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.5);
+    border: none;
+    color: black;
+    font-size: 2em;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background 0.3s ease;
+}
+
+.nav-btn:hover {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+#prevPhoto {
+    left: 10%;
+}
+
+#nextPhoto {
+    right: 10%;
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 2em;
+    color: white;
+    cursor: pointer;
+}
+
+#galleryImage {
+    transition: opacity 0.5s ease-in-out;
+}
+
+.heart {
+        position: fixed;
+        bottom: 0;
+        font-size: 24px;
+        color: red;
+        opacity: 0.8;
+        animation: floatUp 4s linear forwards;
+        z-index: -1
+    }
+
+    #playButton {
+        background-color: #ff4d6d; /* Color rosa vibrante */
+        color: white;
+        font-size: 18px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: 0.3s;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    #playButton:hover {
+        background-color: #e63950; /* Un tono más oscuro al pasar el mouse */
+        transform: scale(1.1);
+    }
+
+    @keyframes floatUp {
+        0% {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(-100vh) scale(1.5);
+            opacity: 0;
+        }
+    }
+
+
+        @keyframes revealMessage {
+            0% {
+                opacity: 0;
+                transform: translateY(50px) scale(0.8);
+                filter: blur(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="title">Sorpresa ❤️</h1>
+
+        <button id="playButton" onclick="playMusic()">🎶 Nuestra canción</button>
+
+        <audio id="myAudio" loop>
+            <source src="/fotos/tumanta.mp3" type="audio/mp3">
+            Tu navegador no soporta el audio.
+        </audio>
+
+        <div id="countdown">
+            <div class="digit-box"><div class="digit" id="digit1">0</div></div>
+            <div class="digit-box"><div class="digit" id="digit2">0</div></div>
+            <div class="digit-box"><div class="digit" id="digit3">:</div></div>
+            <div class="digit-box"><div class="digit" id="digit4">0</div></div>
+            <div class="digit-box"><div class="digit" id="digit5">0</div></div>
+            <div class="digit-box"><div class="digit" id="digit6">:</div></div>
+            <div class="digit-box"><div class="digit" id="digit7">0</div></div>
+            <div class="digit-box"><div class="digit" id="digit8">0</div></div>
+        </div>
+        <div id="message">
+            <p>¡Feliz primer mes, mi amor! 💖</p>
+            <p>Holaaa, mi niña preciosa.</p>
+            <p>Un mesecito cumplido desde que te dije que me gustabas, se pasó muy muy rápido, realmente estoy muy feliz de estar contigo. Gracias por escogerme a mí, te prometo qué haré de todo para que seas feliz, de verdad te quiero mucho.            </p>
+            <p>Hace poco ví una película que se llamaba las cosas que odio de tí, entonces me inspiré y he decidido dejarte este texto dónde te digo</p>
+            <p><strong>Las 6 cosas que odio de tí...</strong></p>
+            <p><strong>1.</strong> Odio cuándo estás triste, siento una horrible angustia en el pecho cuándo estás triste, realmente me molesta que te hagan estar triste, que te hablen feo o que hagan cualquier cosa que te haga sentir mal. Espero ser el apoyo que deseas, muchas veces no sé muy bien qué decir y entonces intento darte mimos para hacerte sentir mejor, espero y de verdad sean de ayuda.
+            </p>
+            <p><strong>2.</strong> Odio estar lejos de tí, simplemente me gustaría estar cerca para poder declararme en persona, darte abrazos y besos, tomarnos fotos juntos. Simplemente deseo estar presente para tí cuándo estés mal, deseo sentir tu cabeza en mi pecho, deseo sentir el olor de tu cabello, deseo estar sentados en la banca de un parque abrazándonos en silencio, quiero poder estar presente cuándo te sientas mal y aunque sé que ahora no se puede, daré todo para que en el futuro se haga posible y nunca te dejaría por la distancia, simplemente es algo que nos tocó vivir, hay que aprovechar sus pros y superarlo<3
+            </p>
+            <p><strong>3.</strong> Odio no haberte conocido antes, realmente siento que eres para mí y tal vez nos conocimos en el momento indicado, pero no puedo dejar de pensar en si te hubiera conocido antes, lo feliz que nos habríamos hecho y las cosas que habríamos pasado ya juntos, además de haber crecido juntos y aunque entiendo que las cosas sucedieron cómo tenían que ser, la idea de haberte conocido antes igual me parece god.
+            </p>
+            <p><strong>4.</strong> Odio cuándo te hago sentir mal, como ese día el 14 de febrero, o hace poco que sentiste ansiedad por mí. Te juro que mi única intención es hacerte feliz, y cuándo te hago sentir mal, solo me siento horrible pq es totalmente contrario a lo que deseo hacerte sentir, esto es algo que realmente odio.
+            </p>
+            <p><strong>5.</strong> Odio no estar presente físicamente cuando estás triste, aunque ya dije algo parecido antes, igual quiero explayarme más. Cuándo tú estás triste, realmente me gustaría ponerte el hombro y que llores abrazada por mí, quiero estar para tí, quiero que no te sientas sola, quiero simplemente apoyarte más en ese momento y aunque sé que ahora te apoyo algo por chat, siento que si estuviera ahí físicamente sería god y podría apoyarte mucho más.
+            </p>
+            <p><strong>6.</strong> Odio que hayas pasado por tantas cosas malas, sé que pasaste por un montón de cosas con tu familia, con más personas, etc y aunque sé que todas tus vivencias te hacen ser quien eres, odio que te hayan hecho daño, odio que hayas tenido que sufrir, odio no haber estado ahí para tí, odio que cuando te conocí me dijeras que a veces te sentías sola, odio que hayas sufrido. Te mereces lo mejor, cómo dice nuestra canción "sé que el mundo es bruto y ya sufriste mucho, puedo ser la luz que te cure las alas". Realmente espero apoyarte cuando estés mal, realmente espero ser esa persona que necesitas, espero ayudarte a sanar todas tus heridas, seré tu más grande apoyo, me alegraré de tus éxitos y ya de por sí me alegro de tu felicidad. Entonces confía en mí, que te prometo que daré todo para que seas la chica más feliz del mundo y si no lo logro, entonces te haré la chica más contenta del mundo y si no lo logro entonces te haré la chica más alegre de todas, y así hasta lograr que estés tranquila, porque sé que la felicidad no es algo permanente, pero que por lo menos mientras estés conmigo, alegrar tus días tristes y los días felices, hacerlos aún más felices, mientras estés conmigo, yo voy a estar en las buenas, las malas y las peores, te lo prometo. Solo sigue confiando en mí, no te aseguro que estemos para siempre, pero te aseguro que me dejaré la piel intentadolo.</p>
+            <p><strong>Feliz primer mes mi amor, el primero de muchos años más juntos ❤️</strong></p>
+            <button id="showPhotos">Ver nuestras fotos 📸</button>
+
+<div id="photoGallery" class="hidden">
+    <span class="close-btn" onclick="closeGallery()">✖</span>
+    <img id="galleryImage" src="/fotos/foto1.png" alt="Foto de nosotros">
+    
+    <button id="prevPhoto" class="nav-btn" onclick="changePhoto(-1)">◀</button>
+    <button id="nextPhoto" class="nav-btn" onclick="changePhoto(1)">▶</button>
+</div>
+
+            
+    </div>
+
+    <script>
+
+const photos = ["/fotos/foto1.png", "/fotos/foto2.png", "/fotos/foto3.png"
+    ,"/fotos/foto4.png", "/fotos/foto5.png", "/fotos/foto6.png"
+    ,"/fotos/foto7.png", "/fotos/foto8.png", "/fotos/foto9.png"
+    , "/fotos/foto10.png"
+]; // Añade más fotos aquí
+let currentPhoto = 0;
+const galleryImage = document.getElementById("galleryImage");
+
+document.getElementById("showPhotos").addEventListener("click", function() {
+    openGallery();
+});
+
+function openGallery() {
+    document.getElementById("photoGallery").classList.remove("hidden");
+    setTimeout(() => {
+        document.getElementById("photoGallery").style.opacity = "1";
+        document.getElementById("photoGallery").style.transform = "scale(1)";
+    }, 50);
+}
+
+function closeGallery() {
+    document.getElementById("photoGallery").style.opacity = "0";
+    document.getElementById("photoGallery").style.transform = "scale(0.8)";
+    setTimeout(() => {
+        document.getElementById("photoGallery").classList.add("hidden");
+    }, 500);
+}
+
+function changePhoto(direction) {
+    galleryImage.style.opacity = "0"; // Se desvanece la imagen actual
+
+    setTimeout(() => {
+        currentPhoto += direction;
+        if (currentPhoto < 0) {
+            currentPhoto = photos.length - 1;
+        } else if (currentPhoto >= photos.length) {
+            currentPhoto = 0;
+        }
+
+        galleryImage.src = photos[currentPhoto];
+        galleryImage.style.opacity = "1"; // Aparece la nueva imagen
+    }, 300); // Retraso para que la animación se vea fluida
+}
+
+
+
+
+        document.addEventListener("DOMContentLoaded", function() {
+            function countdown() {
+                const targetDate = new Date("March 5, 2025 00:00:00 GMT-5").getTime();
+                const digit1Box = document.querySelector(".digit-box:nth-child(1)");
+                const digit2Box = document.querySelector(".digit-box:nth-child(2)");
+                const digit4Box = document.querySelector(".digit-box:nth-child(4)");
+                const digit5Box = document.querySelector(".digit-box:nth-child(5)");
+                const digit7Box = document.querySelector(".digit-box:nth-child(7)");
+                const digit8Box = document.querySelector(".digit-box:nth-child(8)");
+                const countdownElement = document.getElementById("countdown");
+                const titleElement = document.getElementById("title");
+                const messageElement = document.getElementById("message");
+
+                function createDigitElement(value) {
+                    const digit = document.createElement("div");
+                    digit.className = "digit";
+                    digit.innerText = value;
+                    digit.style.transform = "translateY(100%)";
+                    return digit;
+                }
+
+                function updateDigit(box, newValue) {
+                    const currentDigit = box.querySelector(".digit");
+
+                    if (currentDigit.innerText == newValue) return; // No animar si el número no cambia
+
+                    const newDigit = createDigitElement(newValue);
+                    box.appendChild(newDigit);
+                    setTimeout(() => {
+                        newDigit.style.transform = "translateY(0)";
+                        currentDigit.style.transform = "translateY(-100%)";
+                    }, 50);
+
+                    setTimeout(() => {
+                        currentDigit.remove();
+                    }, 500);
+                }
+
+                const interval = setInterval(() => {
+
+                const now = new Date().getTime();
+                const timeLeft = targetDate - now;
+
+                    if (timeLeft <= 0) {
+
+                        startHeartAnimation();
+
+
+                        clearInterval(interval);
+
+                        countdownElement.style.animation = "fadeOut 1s ease-out forwards";
+                        
+                        // Mover el título de manera fluida con la caja
+                        titleElement.style.transition = "transform 1.5s ease-in-out, opacity 1.5s ease-in-out";
+                        titleElement.style.transform = "translateY(-80px)";
+                        titleElement.style.opacity = "1"; 
+
+                    setTimeout(() => {
+                        const messageElement = document.getElementById("message");
+                        messageElement.style.visibility = "visible";  // Lo hace visible sin interrumpir la animación
+                        messageElement.style.opacity = "1";          // Hace que aparezca suavemente
+                        messageElement.style.transform = "translateY(0) scale(1)"; // Suaviza la entrada
+                        }, 500); // Dejamos un pequeño retraso para que el cambio se vea natural
+                        return;
+                    }
+
+                    const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                    let tens = Math.floor(seconds / 10);
+                    let units = seconds % 10;
+
+                    let tens2 = Math.floor(minutes / 10);
+                    let units2 = minutes % 10;
+
+                    let tens3 = Math.floor(hours / 10);
+                    let units3 = hours % 10;
+
+                    updateDigit(digit7Box, tens);
+                    updateDigit(digit8Box, units);
+                    updateDigit(digit4Box, tens2);
+                    updateDigit(digit5Box, units2);
+                    updateDigit(digit1Box, tens3);
+                    updateDigit(digit2Box, units3);
+                }, 1000);
+            }
+
+            countdown();
+        });
+    </script>
+
+<script>
+    function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+
+        // Posición aleatoria en la pantalla
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = Math.random() * 20 + 20 + "px"; // Tamaños variados
+        heart.style.animationDuration = Math.random() * 2 + 3 + "s"; // Diferentes velocidades
+
+        document.body.appendChild(heart);
+
+        // Eliminar corazones después de la animación
+        setTimeout(() => {
+            heart.remove();
+        }, 4000);
+    }
+
+    function startHeartAnimation() {
+        setInterval(createHeart, 300); // Genera corazones cada 300ms
+    }
+
+</script>
+
+<script>
+    function playMusic() {
+        const audio = document.getElementById("myAudio");
+        const button = document.getElementById("playButton");
+
+        audio.play().then(() => {
+            button.style.display = "none"; // Ocultar el botón al reproducir la música
+        }).catch(error => {
+            console.log("El navegador bloqueó la reproducción automática:", error);
+        });
+    }
+</script>
+</body>
+</html>
