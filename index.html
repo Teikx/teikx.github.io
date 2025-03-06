@@ -452,7 +452,10 @@ function changePhoto(direction) {
         const button = document.getElementById("playButton");
 
         audio.play().then(() => {
-            button.style.display = "none"; // Ocultar el botón al reproducir la música
+            button.style.animation = "fadeOut 1s ease-out forwards" ;
+            setTimeout(() => {
+        button.style.display = "none"; // Ocultar completamente después de la animación
+            }, 1000); // Tiempo igual a la duración de la animación
         }).catch(error => {
             console.log("El navegador bloqueó la reproducción automática:", error);
         });
