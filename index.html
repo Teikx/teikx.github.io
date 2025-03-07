@@ -192,6 +192,22 @@
         transform: scale(1.1);
     }
 
+    button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #e60000;
+}
+
     @keyframes floatUp {
         0% {
             transform: translateY(0) scale(1);
@@ -274,6 +290,10 @@
 
             <p><strong>Feliz primer mes mi amor, el primero de muchos años más juntos ❤️</strong></p>
             <button id="showPhotos">Ver nuestras fotos 📸</button>
+
+            <button onclick="window.location.href='tucumple.html'">Ir a la siguiente página</button>
+
+
 
 <div id="photoGallery" class="hidden">
     <span class="close-btn" onclick="closeGallery()">✖</span>
@@ -467,5 +487,6 @@ function changePhoto(direction) {
         });
     }
 </script>
+
 </body>
 </html>
